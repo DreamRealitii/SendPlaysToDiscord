@@ -22,7 +22,7 @@ namespace SendPlaysToDiscordBot
         internal static Plugin Instance { get; private set; }
         internal static IPALogger Log { get; private set; }
         private UserInfo userInfo;
-        private WebSocket socket = new WebSocket("ws://0.0.0.0:2946/BSDataPuller/MapData");
+        private WebSocket socket;
         private BeatSaver beatSaver = new BeatSaver("SendPlaysToDiscordBot", Assembly.GetExecutingAssembly().GetName().Version);
         private string currentLevelKey;
         private BeatSaverSharp.Models.BeatmapDifficulty.BeatmapCharacteristic currentCharacteristic;
@@ -52,10 +52,8 @@ namespace SendPlaysToDiscordBot
         public void OnApplicationStart() {
             Log.Debug("OnApplicationStart");
             BSEvents.levelCleared += OnLevelClear;
-            Log.Info("IP Address = " + getIP());
             socket = new WebSocket("ws://" + getIP() + ":2946/BSDataPuller/MapData");
             socket.Connect();
-            socket.OnOpen += OnSocketConnection;
             socket.OnMessage += OnSocketMessage;
         }
 
@@ -64,7 +62,7 @@ namespace SendPlaysToDiscordBot
             Log.Debug("OnApplicationQuit");
         }
 
-        public string getIP() {
+        private string getIP() {
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList) 
                 if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
@@ -72,10 +70,7 @@ namespace SendPlaysToDiscordBot
             return "No IP address found.";
         }
 
-        public void OnSocketConnection(object sender, EventArgs message) {
-            Plugin.Log.Info("Connected to DataPuller WebSocket.");
-        }
-
+        //When DataPuller sends data of the selected level, update variables used for finding BeatSaver data.
         public void OnSocketMessage(object sender, MessageEventArgs message) {
             string data = message.Data;
             int index = data.IndexOf("BSRKey") + 9;
@@ -155,6 +150,7 @@ namespace SendPlaysToDiscordBot
             return (numberOfNotes - 13) * 920 + 4715;
         }
 
+        //Creates a string of modifiers.
         private string StringOfModifiers(GameplayModifiers modifiers) {
             string result = "";
             result += "Speed: " + modifiers.songSpeedMul;
