@@ -1,11 +1,11 @@
 ﻿{
   "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
-  "id": "SendPlaysToDiscordBot",
-  "name": "SendPlaysToDiscordBot",
+  "id": "SendPlaysToDiscord",
+  "name": "SendPlaysToDiscord",
   "author": "Dream Reality",
   "version": "0.0.1",
-  "description": "Sends score data to a Discord bot.",
-  "gameVersion": "1.18.0",
+  "description": "Sends score data to a Discord websocket.",
+  "gameVersion": "1.18.1",
   "dependsOn": {
     "BSIPA": "^4.0.5"
   },

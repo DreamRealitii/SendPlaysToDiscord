@@ -13,6 +13,7 @@ using BeatSaverSharp;
 using BeatSaverSharp.Models;
 using System.Reflection;
 using System.Net;
+using JNogueira.Discord.Webhook.Client;
 
 namespace SendPlaysToDiscordBot
 {
@@ -27,6 +28,7 @@ namespace SendPlaysToDiscordBot
         private string currentLevelKey;
         private BeatSaverSharp.Models.BeatmapDifficulty.BeatmapCharacteristic currentCharacteristic;
         private BeatSaverSharp.Models.BeatmapDifficulty.BeatSaverBeatmapDifficulty currentDifficulty;
+        private static string webhookURL = "https://discord.com/api/webhooks/895725675779080263/0hhSup2JkZU09HAMbLhHqhN9EuMvCMAaWiEttJ0TzGYu6GoboMynFtEgB0btd09U_1_b";
 
         [Init]
         /// <summary>
@@ -110,7 +112,7 @@ namespace SendPlaysToDiscordBot
             currentDifficulty = result;
         }
 
-        //Data sent: Steam User ID, BeatSaver Level ID, Star Ranking, Passed Level, Score Accuracy, Max Combo, and (Modifiers).
+        //Data sent: Steam User ID, BeatSaver Level ID, Star Ranking, Passed Level, Raw Score, Max Combo, Max Score, Number of Notes, and (Modifiers).
         public async void OnLevelClear(StandardLevelScenesTransitionSetupDataSO a, LevelCompletionResults results) {
             Log.Info("Creating data to send:");
             string data = "";
@@ -120,14 +122,23 @@ namespace SendPlaysToDiscordBot
             data += ", LevelID: " + currentLevelKey;
             BeatmapVersion level = (await beatSaver.Beatmap(currentLevelKey)).LatestVersion;
             BeatSaverSharp.Models.BeatmapDifficulty map = GetCurrentDifficulty(level);
-            data += ", DifficultyStars: " + map.Stars;
-            int maxScore = MaxScore(map.Notes);
-            data += ", PassedLevel: " + (results.modifiedScore > maxScore / 2);
-            data += ", Accuracy: " + ((float)results.rawScore / maxScore);
+            data += ", StarRanking: " + map.Stars;
+            data += ", PassedLevel: " + (results.modifiedScore - (results.rawScore * 0.5) < 1);
+            data += ", Raw Score: " + results.rawScore;
             data += ", MaxCombo: " + results.maxCombo;
+            data += ", Max Score: " + MaxScore(map.Notes);
+            data += ", Number of Notes: " + map.Notes;
             data += ", Modifiers: (" + StringOfModifiers(results.gameplayModifiers) + ")";
 
             Log.Info(data);
+            SendMessage(data);
+        }
+
+        //Sends data to Discord Webhook.
+        private async void SendMessage(string data) {
+            DiscordWebhookClient client = new DiscordWebhookClient(webhookURL);
+            DiscordMessage message = new DiscordMessage(data);
+            await client.SendToDiscord(message);
         }
 
         private BeatSaverSharp.Models.BeatmapDifficulty GetCurrentDifficulty(BeatmapVersion level) {
