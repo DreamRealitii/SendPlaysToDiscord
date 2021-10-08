@@ -29,6 +29,7 @@ namespace SendPlaysToDiscordBot
         private BeatSaverSharp.Models.BeatmapDifficulty.BeatmapCharacteristic currentCharacteristic;
         private BeatSaverSharp.Models.BeatmapDifficulty.BeatSaverBeatmapDifficulty currentDifficulty;
         private static string webhookURL = "https://discord.com/api/webhooks/895725675779080263/0hhSup2JkZU09HAMbLhHqhN9EuMvCMAaWiEttJ0TzGYu6GoboMynFtEgB0btd09U_1_b";
+        private static string botName = "Beat Saber Score Delivery";
 
         [Init]
         /// <summary>
@@ -39,7 +40,7 @@ namespace SendPlaysToDiscordBot
         public void Init(IPALogger logger) {
             Instance = this;
             Log = logger;
-            Log.Info("SendPlaysToDiscordBot initialized.");
+            Log.Info("SendPlaysToDiscord initialized.");
         }
 
         #region BSIPA Config
@@ -53,10 +54,7 @@ namespace SendPlaysToDiscordBot
         [OnStart]
         public void OnApplicationStart() {
             Log.Debug("OnApplicationStart");
-            BSEvents.levelCleared += OnLevelClear;
-            socket = new WebSocket("ws://" + getIP() + ":2946/BSDataPuller/MapData");
-            socket.Connect();
-            socket.OnMessage += OnSocketMessage;
+            DataProcessor.instance.Init();
         }
 
         [OnExit]
@@ -69,7 +67,7 @@ namespace SendPlaysToDiscordBot
             foreach (var ip in host.AddressList) 
                 if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                     return ip.ToString();
-            return "No IP address found.";
+            return null;
         }
 
         //When DataPuller sends data of the selected level, update variables used for finding BeatSaver data.
@@ -112,8 +110,12 @@ namespace SendPlaysToDiscordBot
             currentDifficulty = result;
         }
 
-        //Data sent: Steam User ID, BeatSaver Level ID, Star Ranking, Passed Level, Raw Score, Max Combo, Max Score, Number of Notes, and (Modifiers).
+        //Data sent: Steam User ID, BeatSaver Level ID, Star Ranking, Raw Score, Max Combo, Max Score, Number of Notes, and (Modifiers).
         public async void OnLevelClear(StandardLevelScenesTransitionSetupDataSO a, LevelCompletionResults results) {
+            if (currentLevelKey.Equals("ull")) {
+                Log.Info("User did not play a map from BeatSaver. No score will be sent.");
+                return;
+            }
             Log.Info("Creating data to send:");
             string data = "";
 
@@ -123,24 +125,24 @@ namespace SendPlaysToDiscordBot
             BeatmapVersion level = (await beatSaver.Beatmap(currentLevelKey)).LatestVersion;
             BeatSaverSharp.Models.BeatmapDifficulty map = GetCurrentDifficulty(level);
             data += ", StarRanking: " + map.Stars;
-            data += ", PassedLevel: " + (results.modifiedScore - (results.rawScore * 0.5) < 1);
             data += ", Raw Score: " + results.rawScore;
             data += ", MaxCombo: " + results.maxCombo;
             data += ", Max Score: " + MaxScore(map.Notes);
             data += ", Number of Notes: " + map.Notes;
-            data += ", Modifiers: (" + StringOfModifiers(results.gameplayModifiers) + ")";
+            data += ", Modifiers Used: (" + StringOfModifiers(results.gameplayModifiers) + ")";
 
             Log.Info(data);
             SendMessage(data);
         }
 
         //Sends data to Discord Webhook.
-        private async void SendMessage(string data) {
+        public async void SendMessage(string data) {
             DiscordWebhookClient client = new DiscordWebhookClient(webhookURL);
-            DiscordMessage message = new DiscordMessage(data);
+            DiscordMessage message = new DiscordMessage(data, botName);
             await client.SendToDiscord(message);
         }
 
+        //Gets the specific BeatSaver difficulty map from the level the user finished.
         private BeatSaverSharp.Models.BeatmapDifficulty GetCurrentDifficulty(BeatmapVersion level) {
             IReadOnlyCollection<BeatSaverSharp.Models.BeatmapDifficulty> difficulties = level.Difficulties;
             foreach (BeatSaverSharp.Models.BeatmapDifficulty map in difficulties)

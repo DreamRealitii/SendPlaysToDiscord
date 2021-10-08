@@ -7,7 +7,10 @@ namespace SendPlaysToDiscordBot.Configuration
     internal class PluginConfig
     {
         public static PluginConfig Instance { get; set; }
-        public virtual int IntValue { get; set; } = 42; // Must be 'virtual' if you want BSIPA to detect a value change and save the config automatically.
+        public virtual bool enabled { get; set; } = true;
+        public virtual string webhookURL { get; set; } = "None";
+        public virtual bool overrideUserID { get; set; } = false;
+        public virtual string customUserID { get; set; } = "133742069";
 
         /// <summary>
         /// This is called whenever BSIPA reads the config from disk (including when file changes are detected).
