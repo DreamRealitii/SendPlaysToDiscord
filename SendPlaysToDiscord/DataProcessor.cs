@@ -10,8 +10,9 @@ using System.Reflection;
 using System.Net;
 using BS_Utils.Utilities;
 using BS_Utils.Gameplay;
+using SendPlaysToDiscord.Configuration;
 
-namespace SendPlaysToDiscordBot {
+namespace SendPlaysToDiscord {
     class DataProcessor {
         
         public static DataProcessor instance = new DataProcessor();
@@ -58,13 +59,14 @@ namespace SendPlaysToDiscordBot {
                 Plugin.Log.Info("User did not play a map from BeatSaver. No score will be sent.");
                 return;
             }
-            Plugin.Log.Info("Creating data to send:");
+            if (!Configuration.PluginConfig.Instance.enabled)
+                return;
 
             //Create data strings.
             userInfo = await GetUserInfo.GetUserAsync();
             BeatmapVersion level = (await beatSaver.Beatmap(currentLevelKey)).LatestVersion;
             BeatSaverSharp.Models.BeatmapDifficulty map = GetCurrentDifficulty(level, currentCharacteristic, currentDifficulty);
-            string ids = "User ID: " + userInfo.platformUserId +
+            string ids = "User ID: " + (PluginConfig.Instance.overrideUserID ?  PluginConfig.Instance.customUserID : userInfo.platformUserId) +
                 "\nUTC Time: " + DateTime.UtcNow.ToString("u") +
                 "\nBeatSaver Level ID: " + currentLevelKey + 
                 "\nCharacteristic: " + currentCharacteristic +
@@ -76,7 +78,7 @@ namespace SendPlaysToDiscordBot {
             string modifiers = StringOfModifiers(results.gameplayModifiers, (float)results.modifiedScore / Math.Max(results.rawScore, 1));
 
             //Send data.
-            DiscordMessenging.SendMessage(ids, score, modifiers);
+            DiscordMessenging.SendScore(ids, score, modifiers);
         }
 
         //Gets the specific BeatSaver difficulty the player played.
@@ -162,7 +164,6 @@ namespace SendPlaysToDiscordBot {
                 result += "No Walls, ";
                 modifierAmount -= 0.05f;
             }
-            Plugin.Log.Info("Actual Modified Ratio: " + modifiedRatio + ", Modified Ratio with Fail: " + (modifierAmount - 0.5f));
             if (modifiedRatio - (modifierAmount - 0.5f) < 0.01f) {
                 result = "No Fail (Failed), " + result;
                 modifierAmount -= 0.50f;

@@ -2,13 +2,13 @@
 using IPA.Config.Stores;
 
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
-namespace SendPlaysToDiscordBot.Configuration
+namespace SendPlaysToDiscord.Configuration
 {
-    internal class PluginConfig
+    public class PluginConfig
     {
         public static PluginConfig Instance { get; set; }
         public virtual bool enabled { get; set; } = true;
-        public virtual string webhookURL { get; set; } = "None";
+        public virtual string webhookURL { get; set; } = "URreallyusingthismod?.yay";
         public virtual bool overrideUserID { get; set; } = false;
         public virtual string customUserID { get; set; } = "133742069";
 
@@ -17,7 +17,7 @@ namespace SendPlaysToDiscordBot.Configuration
         /// </summary>
         public virtual void OnReload()
         {
-            // Do stuff after config is read from disk.
+            
         }
 
         /// <summary>

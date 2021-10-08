@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JNogueira.Discord.Webhook.Client;
+using SendPlaysToDiscord.Configuration;
 
-namespace SendPlaysToDiscordBot
+namespace SendPlaysToDiscord
 {
     class DiscordMessenging {
-        private static string webhookURL = "https://discord.com/api/webhooks/895725675779080263/0hhSup2JkZU09HAMbLhHqhN9EuMvCMAaWiEttJ0TzGYu6GoboMynFtEgB0btd09U_1_b";
         private static string avatarIconURL = "https://cdn.akamai.steamstatic.com/steam/apps/620980/capsule_616x353.jpg?t=1622461922";
         private static string botName = "Beat Saber Score Delivery";
         private const int color = 5570815; //Purple (convert hex code to decimal number)
 
         //Sends data to Discord Webhook.
-        public static async void SendMessage(string ids, string score, string modifiers) {
-            DiscordWebhookClient client = new DiscordWebhookClient(webhookURL);
+        public static async void SendScore(string ids, string score, string modifiers) {
+            DiscordWebhookClient client = new DiscordWebhookClient(PluginConfig.Instance.webhookURL);
             List<DiscordMessageEmbedField> embedFields = new List<DiscordMessageEmbedField>();
 
             embedFields.Add(new DiscordMessageEmbedField("Score Info", score));
@@ -35,10 +35,10 @@ namespace SendPlaysToDiscordBot
         }
 
         //Sends test message to Discord Webhook, returns true if successful.
-        public static async Task<bool> SendTestMessage(string userId) {
-            try{
-                DiscordWebhookClient client = new DiscordWebhookClient(webhookURL);
-                DiscordMessage message = new DiscordMessage("Test message from UserID " + userId + ".\nYou can delete this.", botName, avatarIconURL);
+        public static async Task<bool> TestMessage() {
+            try {
+                DiscordWebhookClient client = new DiscordWebhookClient(PluginConfig.Instance.webhookURL);
+                DiscordMessage message = new DiscordMessage("Test message to Webhook " + PluginConfig.Instance.webhookURL + "\nYou can tell your bots to these messages.", botName, avatarIconURL);
                 await client.SendToDiscord(message);
                 return true;
             }

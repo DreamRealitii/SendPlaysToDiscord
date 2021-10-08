@@ -1,0 +1,38 @@
+﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+  <modifier-container horizontal-fit='PreferredSize' anchor-pos-y='25'>
+    <vertical spacing='6.5'>
+      
+      <horizontal>
+        <toggle-setting text='Enable SendPlaysToDiscord' id='EnableButton' value='Enabled' on-change="OnSetting1"/>
+      </horizontal>
+
+      <horizontal/>
+
+      <horizontal>
+        <text italics='false' align='Center' text='Point here for a pro tip!' hover-hint='Copy/Paste the URL and ID directly into the SendPlaysToDiscord.json file in the Beat Saber UserData folder and restart the game, instead of typing it manually in VR.'/>
+      </horizontal>
+      
+      <horizontal>
+        <text text='Discord Webhook URL' />
+      </horizontal>
+      <horizontal>
+        <string-setting text=' ' id='WebhookURLBox' value='WebhookURL' on-change="OnSetting2"/>
+      </horizontal>
+      <horizontal>
+      <text text='Click the Test Button to see if the Webhook URL works!' id='StatusTextGUI' font-size='3' italics='false'/>
+        <button text='Test this URL' on-click='TestURL'/>
+      </horizontal>
+      
+      <horizontal/>
+      
+      <horizontal>
+        <toggle-setting text='Override User ID' id='OverrideIDButton' value='OverrideID' on-change="OnSetting3"/>
+      </horizontal>
+      
+      <horizontal>
+        <string-setting text='Custom User ID ' id='CustomIDBox' value='CustomID' on-change="OnSetting4"/>
+      </horizontal>
+    
+    </vertical>
+  </modifier-container>
+</bg>

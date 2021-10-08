@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendPlaysToDiscord", "SendPlaysToDiscordBot\SendPlaysToDiscord.csproj", "{D32A8C5C-F5EE-4019-A4F3-144AFD0971CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendPlaysToDiscord", "SendPlaysToDiscord\SendPlaysToDiscord.csproj", "{D32A8C5C-F5EE-4019-A4F3-144AFD0971CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
