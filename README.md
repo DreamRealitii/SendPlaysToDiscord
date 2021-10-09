@@ -28,10 +28,10 @@ How to send scores:
 7. Optional: If you are playing someone else's copy of Beat Saber, use the "Override User ID" setting to send your own User ID.
 
 How to install:
-- Install Beat Saber ModAssistant. If this mod is on ModAssistant, install from there and skip all these steps.
-- Use ModAssistant to install BSIPA, BeatSaberMarkupLanguage, BeatSaverSharp, BS Utils, and Data Puller.
-- Download SendScoresToDiscord.dll from release and put it in Beat Saber's Plugins folder.
-- Download Libs.zip from release, extract, and copy its files (discord-webhook-client.dll, notofique-me.dll, and Polly.dll) into Beat Saber's Libs folder.
+1. Install Beat Saber ModAssistant. If this mod is on ModAssistant, install from there and skip all these steps.
+2. Use ModAssistant to install BSIPA, BeatSaberMarkupLanguage, BeatSaverSharp, BS Utils, and Data Puller.
+3. Download SendScoresToDiscord.dll from release and put it in Beat Saber's Plugins folder.
+4. Download Libs.zip from release, extract, and copy its files (discord-webhook-client.dll, notofique-me.dll, and Polly.dll) into Beat Saber's Libs folder.
 
 How to build .dll file from source code:
 1. Download and extract source code from release.
