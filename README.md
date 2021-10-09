@@ -14,13 +14,19 @@ How to receive scores:
 2. Go to text channel settings -> Integrations -> Create Webhook.
 3. Click "Copy Webhook URL" and send the URL to everyone you want to receive scores from.
 
+What the scores look like:
+![image](https://user-images.githubusercontent.com/33010927/136639144-7a848094-ec6d-456d-872a-7495f8812b0f.png)
+
 How to send scores:
-1. Install this mod using ModAssistant.
+1. Install this mod (see below).
 2. Start the game to generate a .json config file in Beat Saber's UserData folder.
-3. Paste the Discord Webhool URL into the "webhookURL" field and restart the game. (Alternatively, type it manually into the in-game settings tab)
+3. Paste the Discord Webhool URL into the "webhookURL" field and save the file (restart the game if you want to see your URL appear in-game). Alternatively, type it manually into the in-game settings tab.
 4. The in-game settings tab is in the mod settings to the left of the level browser when you are selecting a level.
 5. Click the "Test This URL" button to send a test message and the status text will tell you if it succeeds.
 6. If the URL works, play a level to the end and this mod will automatically send score information to the URL.
 7. Optional: If you are playing someone else's copy of Beat Saber, use the "Override User ID" setting to send your own User ID.
+
+How to install manually:
+
 
 How to build .dll file:
