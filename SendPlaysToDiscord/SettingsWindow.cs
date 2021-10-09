@@ -4,12 +4,8 @@ using BeatSaberMarkupLanguage.Components;
 using BeatSaberMarkupLanguage.Components.Settings;
 using BeatSaberMarkupLanguage.ViewControllers;
 using BeatSaberMarkupLanguage.GameplaySetup;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using SendPlaysToDiscord.Configuration;
-using System.Threading.Tasks;
 
 namespace SendPlaysToDiscord
 {

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebSocketSharp;
 using BeatSaverSharp;
 using BeatSaverSharp.Models;
@@ -82,37 +79,37 @@ namespace SendPlaysToDiscord {
         }
 
         //Gets the specific BeatSaver difficulty the player played.
-        private BeatSaverSharp.Models.BeatmapDifficulty GetCurrentDifficulty(BeatmapVersion level, string characteristic, string difficulty) {
-            BeatSaverSharp.Models.BeatmapDifficulty.BeatmapCharacteristic bsCharacteristic = BeatSaverCharacteristic(characteristic);
-            BeatSaverSharp.Models.BeatmapDifficulty.BeatSaverBeatmapDifficulty bsDifficulty = BeatSaverDifficulty(difficulty);
-            IReadOnlyCollection<BeatSaverSharp.Models.BeatmapDifficulty> difficulties = level.Difficulties;
-            foreach (BeatSaverSharp.Models.BeatmapDifficulty map in difficulties)
+        private BeatmapDifficulty GetCurrentDifficulty(BeatmapVersion level, string characteristic, string difficulty) {
+            BeatmapDifficulty.BeatmapCharacteristic bsCharacteristic = BeatSaverCharacteristic(characteristic);
+            BeatmapDifficulty.BeatSaverBeatmapDifficulty bsDifficulty = BeatSaverDifficulty(difficulty);
+            IReadOnlyCollection<BeatmapDifficulty> difficulties = level.Difficulties;
+            foreach (BeatmapDifficulty map in difficulties)
                 if (map.Characteristic.Equals(bsCharacteristic) && map.Difficulty.Equals(bsDifficulty))
                     return map;
             return null;
         }
 
         //Convert string to characteristic.
-        private BeatSaverSharp.Models.BeatmapDifficulty.BeatmapCharacteristic BeatSaverCharacteristic(string c) {
+        private BeatmapDifficulty.BeatmapCharacteristic BeatSaverCharacteristic(string c) {
             switch (c) {
-                case "Standard": return BeatSaverSharp.Models.BeatmapDifficulty.BeatmapCharacteristic.Standard;
-                case "OneSaber": return BeatSaverSharp.Models.BeatmapDifficulty.BeatmapCharacteristic.OneSaber;
-                case "NoArrows": return BeatSaverSharp.Models.BeatmapDifficulty.BeatmapCharacteristic.NoArrows;
-                case "Degree90": return BeatSaverSharp.Models.BeatmapDifficulty.BeatmapCharacteristic._90Degree;
-                case "Degree360": return BeatSaverSharp.Models.BeatmapDifficulty.BeatmapCharacteristic._360Degree;
-                case "Lawless": return BeatSaverSharp.Models.BeatmapDifficulty.BeatmapCharacteristic.Lawless;
-                default: return BeatSaverSharp.Models.BeatmapDifficulty.BeatmapCharacteristic.Lightshow;
+                case "Standard": return BeatmapDifficulty.BeatmapCharacteristic.Standard;
+                case "OneSaber": return BeatmapDifficulty.BeatmapCharacteristic.OneSaber;
+                case "NoArrows": return BeatmapDifficulty.BeatmapCharacteristic.NoArrows;
+                case "Degree90": return BeatmapDifficulty.BeatmapCharacteristic._90Degree;
+                case "Degree360": return BeatmapDifficulty.BeatmapCharacteristic._360Degree;
+                case "Lawless": return BeatmapDifficulty.BeatmapCharacteristic.Lawless;
+                default: return BeatmapDifficulty.BeatmapCharacteristic.Lightshow;
             }
         }
 
         //Convert string to difficulty.
-        private BeatSaverSharp.Models.BeatmapDifficulty.BeatSaverBeatmapDifficulty BeatSaverDifficulty(string d) {
+        private BeatmapDifficulty.BeatSaverBeatmapDifficulty BeatSaverDifficulty(string d) {
             switch (d) {
-                case "ExpertPlus": return BeatSaverSharp.Models.BeatmapDifficulty.BeatSaverBeatmapDifficulty.ExpertPlus;
-                case "Expert": return BeatSaverSharp.Models.BeatmapDifficulty.BeatSaverBeatmapDifficulty.Expert;
-                case "Hard": return BeatSaverSharp.Models.BeatmapDifficulty.BeatSaverBeatmapDifficulty.Hard;
-                case "Normal": return BeatSaverSharp.Models.BeatmapDifficulty.BeatSaverBeatmapDifficulty.Normal;
-                default: return BeatSaverSharp.Models.BeatmapDifficulty.BeatSaverBeatmapDifficulty.Easy;
+                case "ExpertPlus": return BeatmapDifficulty.BeatSaverBeatmapDifficulty.ExpertPlus;
+                case "Expert": return BeatmapDifficulty.BeatSaverBeatmapDifficulty.Expert;
+                case "Hard": return BeatmapDifficulty.BeatSaverBeatmapDifficulty.Hard;
+                case "Normal": return BeatmapDifficulty.BeatSaverBeatmapDifficulty.Normal;
+                default: return BeatmapDifficulty.BeatSaverBeatmapDifficulty.Easy;
             }
         }
 

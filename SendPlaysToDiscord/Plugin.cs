@@ -1,19 +1,7 @@
 ﻿using IPA;
 using IPA.Config;
 using IPA.Config.Stores;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using IPALogger = IPA.Logging.Logger;
-using BS_Utils.Utilities;
-using BS_Utils.Gameplay;
-using WebSocketSharp;
-using BeatSaverSharp;
-using BeatSaverSharp.Models;
-using System.Reflection;
-using System.Net;
-using JNogueira.Discord.Webhook.Client;
 
 namespace SendPlaysToDiscord
 {
@@ -37,7 +25,7 @@ namespace SendPlaysToDiscord
 
         #region BSIPA Config
         [Init]
-        public void InitWithConfig(IPA.Config.Config conf) {
+        public void InitWithConfig(Config conf) {
             Configuration.PluginConfig.Instance = conf.Generated<Configuration.PluginConfig>();
             new SettingsWindow(Configuration.PluginConfig.Instance);
             Log.Debug("Config loaded");
