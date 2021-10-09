@@ -27,6 +27,10 @@ How to send scores:
 6. If the URL works, play a level to the end and this mod will automatically send score information to the URL.
 7. Optional: If you are playing someone else's copy of Beat Saber, use the "Override User ID" setting to send your own User ID.
 
+Current Issues:
+- Test button is in an asthetically unpleasing position.
+- Fails to send scores for 90 Degree/360 Degree maps.
+
 How to install:
 1. Install Beat Saber ModAssistant. If this mod is on ModAssistant, install from there and skip all these steps.
 2. Use ModAssistant to install BSIPA, BeatSaberMarkupLanguage, BeatSaverSharp, BS Utils, and Data Puller.
