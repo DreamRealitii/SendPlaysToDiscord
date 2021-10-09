@@ -25,16 +25,16 @@ How to send scores:
 6. If the URL works, play a level to the end and this mod will automatically send score information to the URL.
 7. Optional: If you are playing someone else's copy of Beat Saber, use the "Override User ID" setting to send your own User ID.
 
-Current Issues:
-- Test button is in an aesthetically unpleasing position.
-- Webhook URL setting goes way off the left side of the settings window.
-- Fails to send scores for 90 Degree/360 Degree maps.
-
 How to install:
 1. Install Beat Saber ModAssistant. If this mod is on ModAssistant, install from there and skip all these steps.
 2. Use ModAssistant to install BSIPA, BeatSaberMarkupLanguage, BeatSaverSharp, BS Utils, and Data Puller.
 3. Download SendScoresToDiscord.dll from release and put it in Beat Saber's Plugins folder.
 4. Download Libs.zip from release, extract, and copy its files (discord-webhook-client.dll, notofique-me.dll, and Polly.dll) into Beat Saber's Libs folder.
+
+Current Issues:
+- Test button is in an aesthetically unpleasing position.
+- Webhook URL setting goes way off the left side of the settings window.
+- Fails to send scores for 90 Degree/360 Degree maps.
 
 How to build .dll file from source code:
 1. Download and extract source code from release.
