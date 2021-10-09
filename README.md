@@ -34,8 +34,8 @@ How to install:
 - Download Libs.zip from release, extract, and copy its files (discord-webhook-client.dll, notofique-me.dll, and Polly.dll) into Beat Saber's Libs folder.
 
 How to build .dll file from source code:
-- Download and extract source code from release.
-- Create project file `SendPlaysToDiscord/SendPlaysToDiscord.csproj.user` with the text below, but replace BeatSaberDir and ReferencePath with your own Beat Saber directories.
+1. Download and extract source code from release.
+2. Create project file `SendPlaysToDiscord/SendPlaysToDiscord.csproj.user` with the text below, but replace BeatSaberDir and ReferencePath with your own Beat Saber directories.
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
@@ -45,4 +45,4 @@ How to build .dll file from source code:
   </PropertyGroup>
 </Project>
 ```
-- Open SendPlaysToDiscord.sln in Visual Studio and build solution.
+3. Open SendPlaysToDiscord.sln in Visual Studio and build solution.
