@@ -28,7 +28,8 @@ How to send scores:
 7. Optional: If you are playing someone else's copy of Beat Saber, use the "Override User ID" setting to send your own User ID.
 
 Current Issues:
-- Test button is in an asthetically unpleasing position.
+- Test button is in an aesthetically unpleasing position.
+- Webhook URL setting goes way off the left side of the settings window.
 - Fails to send scores for 90 Degree/360 Degree maps.
 
 How to install:
