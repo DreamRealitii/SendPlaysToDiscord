@@ -15,6 +15,7 @@ How to receive scores:
 3. Click "Copy Webhook URL" and send the URL to everyone you want to receive scores from.
 
 What the scores look like:
+
 ![image](https://user-images.githubusercontent.com/33010927/136639144-7a848094-ec6d-456d-872a-7495f8812b0f.png)
 
 How to send scores:
