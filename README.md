@@ -1,4 +1,4 @@
-# SendPlaysToDiscord
+# SendPlaysToDiscord (Abandoned)
 Origin Story:
 1. The university I go to has a rhythm game server.
 2. They were holding an asynchronous osu! tournament using Discord bots that automatically check the leaderboards for new scores by specific users.
